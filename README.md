@@ -188,7 +188,7 @@ class SetSpeedTask(Task):
 
 In short the car speed is updated each time the main dataplicity thread polls it and also when any configuration changes server-side (typically because someone changed a device setting on the website).  
 
-Run the example (as sudo).  You can change the speed at any time from your dataplicity account.  You can quit with Ctrl-C.
+Run the example (as sudo).  You can change the speed at any time from your dataplicity account.  
 
 ```
 [13/May/2014 15:32:47]:dataplicity:INFO: running firmware 0000000001
