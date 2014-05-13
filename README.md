@@ -95,40 +95,41 @@ Now, control it from the internet!
 At this point all that remains is for us to adapt the dataplicity sinewave example to directly control the Raspberry Pi PWM output.
 
 Modify the ui.xml to replace the sinewave example stuff with a dropdown selector to set the output speed.  For example:
-  <?xml version="1.0" encoding="UTF-8"?>
-  <ui>
-      <interface id="dataplicity">
-          <mastertabcontainer title="${device.name}" id="dataplicity-tabs">
-              <tab title="Settings">
-                  <form button="Update" title="Speed">
-                    <select title="Speed" value="${device.settings.scalextric.track.speed}" destination="device.settings.scalextric.track.speed">
-                    <option value="0">0%</option>
-                    <option value="5">5%</option>
-                    <option value="10">10%</option>
-                    <option value="15">15%</option>
-                    <option value="20">20%</option>
-                    <option value="25">25%</option>
-                    <option value="30">30%</option>
-                    <option value="35">35%</option>
-                    <option value="40">40%</option>
-                    <option value="45">45%</option>
-                    <option value="50">50%</option>
-                    <option value="55">55%</option>
-                    <option value="60">60%</option>
-                    <option value="65">65%</option>
-                    <option value="70">70%</option>
-                    <option value="75">75%</option>
-                    <option value="80">80%</option>
-                    <option value="85">85%</option>
-                    <option value="90">90%</option>
-                    <option value="95">95%</option>
-                    <option value="100">100%</option>
-                  </select>  
-                </form>
-            </tab>
-        </mastertabcontainer>
-    </interface>
-</ui>`
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<ui>
+  <interface id="dataplicity">
+    <mastertabcontainer title="${device.name}" id="dataplicity-tabs">
+      <tab title="Settings">
+        <form button="Update" title="Speed">
+          <select title="Speed" value="${device.settings.scalextric.track.speed}" destination="device.settings.scalextric.track.speed">
+            <option value="0">0%</option>
+            <option value="5">5%</option>
+            <option value="10">10%</option>
+            <option value="15">15%</option>
+            <option value="20">20%</option>
+            <option value="25">25%</option>
+            <option value="30">30%</option>
+            <option value="35">35%</option>
+            <option value="40">40%</option>
+            <option value="45">45%</option>
+            <option value="50">50%</option>
+            <option value="55">55%</option>
+            <option value="60">60%</option>
+            <option value="65">65%</option>
+            <option value="70">70%</option>
+            <option value="75">75%</option>
+            <option value="80">80%</option>
+            <option value="85">85%</option>
+            <option value="90">90%</option>
+            <option value="95">95%</option>
+            <option value="100">100%</option>
+          </select>  
+        </form>
+      </tab>
+    </mastertabcontainer>
+  </interface>
+</ui>```
 
 In the case of the above XML, the final user interface looks like this:
 ![Finished Scalextric user interface](/images/scalextric-web.png)
