@@ -24,6 +24,8 @@ Disassemble the SCALEXTRIC controller (there are three screws needed to open it)
 
 Prep the Gertboard, noting the correct orientation.  Fit a jumper to the top two pins on J7 (it won't work without this, I tried it).  Connect GP18 on J2 to MOTA on J5.  Connect GP17 on J2 to MOTB on J5.  Connect your 12-14VDC power supply Ground to the ground pin on J19 (marked with an upside down T symbol).  Connect the +ve terminal of your 12-14VDC power supply to MOT+ on J19.  Connect the black wire of your SCALEXTRIC controller cable to MOTA on J19 and the red wire to MOTB on J19.  Connect the other one to the lane (track) where you anticipate running your car.  That's the wiring done.
 
+![Finished Scalextric wiring](/images/scalextric-wiring-lg.jpg)
+
 Raspberry Pi setup and packages
 -------------------------------
 I followed the usual dataplicity getting started guide at http://dataplicity.com/get-started/raspberry-pi/ to set up my account, the Pi, and to register a device class generating a sine wave.
@@ -221,3 +223,5 @@ Setting speed: 358
 [13/May/2014 15:32:49]:dataplicity:DEBUG: goodbye
 ```
 Tada!
+
+![Finished Scalextric track](/images/scalextric-setup.jpg)
