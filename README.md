@@ -29,10 +29,12 @@ I followed the usual dataplicity getting started guide at http://dataplicity.com
 You'll need two additional packages installed at this point: python-dev and wiringpi.  These are needed to interface with the Gertboard via PWM.
 
 You must first install python-dev or wiringpi will fail to install.
-  sudo apt-get install python-dev
+    sudo apt-get install python-dev
 
-Then
-```pi@raspberrypi ~ $ sudo pip install wiringpi
+Then:
+
+```
+pi@raspberrypi ~ $ sudo pip install wiringpi
 Downloading/unpacking wiringpi
 Running setup.py egg_info for package wiringpi
 
@@ -52,7 +54,8 @@ Installing collected packages: wiringpi
     gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-z,relro build/temp.linux-armv6l-2.7/WiringPi/wiringPi/lcd.o build/temp.linux-armv6l-2.7/WiringPi/wiringPi/piHiPri.o build/temp.linux-armv6l-2.7/WiringPi/wiringPi/piThread.o build/temp.linux-armv6l-2.7/WiringPi/wiringPi/wiringPiFace.o build/temp.linux-armv6l-2.7/wiringpi_wrap.o build/temp.linux-armv6l-2.7/WiringPi/wiringPi/wiringPi.o build/temp.linux-armv6l-2.7/WiringPi/wiringPi/wiringSerial.o build/temp.linux-armv6l-2.7/WiringPi/wiringPi/wiringShift.o -o build/lib.linux-armv6l-2.7/_wiringpi.so
 
 Successfully installed wiringpi
-Cleaning up...```
+Cleaning up...
+```
 
 Next, load the kernel module for the device:
 
@@ -66,7 +69,8 @@ Christine Smythe of Farnell has conveniently provided a Scalextric controller ex
 
 Run it (must be run as sudo), and set the increment to about 50, and the motor output to about 30-40% (circa 373).  
 
-```pi@raspberrypi ~/scalextric/test $ sudo python fsmot-wpv1p0p0.py
+```
+pi@raspberrypi ~/scalextric/test $ sudo python fsmot-wpv1p0p0.py
 WELCOME TO THE SCALEXTRIC CONTROLLER
 
 These are the connections for controlling the scalextric motor:
@@ -84,7 +88,8 @@ Press f to go faster, s to go slower, ESC to exit
 Choose an increment value in range 1-200 : 50
 Hit <RETURN/ENTER> to begin...
 
-0373 #######################```
+0373 #######################
+```
 
 This is usually enough to start the car, so you can try placing the car on the track and see if it starts to move.  If it doesn't, try the parallel track (I wasted more time than I care to admit by powering the wrong track).
 
@@ -130,7 +135,8 @@ Modify the ui.xml to replace the sinewave example stuff with a dropdown selector
       </tab>
     </mastertabcontainer>
   </interface>
-</ui>```
+</ui>
+```
 
 In the case of the above XML, the final user interface looks like this:
 ![Finished Scalextric user interface](/images/scalextric-web.png)
