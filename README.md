@@ -1,5 +1,5 @@
-Control SCALEXTRIC from the internet with a Pi!
-===============================================
+Internet controlled SCALEXTRIC with Raspberry Pi!
+=================================================
 
 Prerequisities
 ---------------
