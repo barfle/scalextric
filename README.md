@@ -106,6 +106,17 @@ Now, control it from the internet!
 ----------------------------------
 At this point all that remains is for us to adapt the dataplicity sinewave example to directly control the Raspberry Pi PWM output.
 
+We need to create a new device project based on the original sinewave example.  Start by making a copy of the sinewave directory:
+
+    cp ~/sinewave ~/scalextric
+    cd ~/scalextric
+
+In that directory you should see a file called ‘dataplicity.conf’ which contains all the information that dataplicity Core needs to run the project.  The first thing we need to do is modify the device class name so that dataplicity sees it as a new kind of device.
+
+In dataplicity.conf, change the following line, which you will find in the [device] section:
+
+    class = projects.Scalextric
+
 Modify the ui.xml to replace the sinewave example stuff with a dropdown selector to set the output speed.  For example:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -192,6 +203,10 @@ class SetSpeedTask(Task):
 
 In short the car speed is updated each time the main dataplicity thread polls it and also when any configuration changes server-side (typically because someone changed a device setting on the website).  
 
+Because we have created a brand new device class, we will have to register it again, which we can do with the following command:
+
+    dataplicity register
+    
 Run the example (as sudo).  You can change the speed at any time from your dataplicity account.  
 
 ```
