@@ -144,7 +144,7 @@ Modify the ui.xml to replace the sinewave example stuff with a dropdown selector
 In the case of the above XML, the final user interface looks like this:
 ![Finished Scalextric user interface](/images/scalextric-web.png)
 
-The only remaining step was to stitch it all together, which I did in a couple of lines of code in scalextric.py. In short the car speed is updated each time the main dataplicity thread polls it, and also when any configuration changes server-side (typically because someone changed a device setting on the website).  Like so:
+The only remaining step was to stitch it all together, which I did in a couple of lines of code in scalextric.py. Like so:
 
 ```
 from dataplicity.client.task import Task, onsignal
@@ -186,7 +186,9 @@ class SetSpeedTask(Task):
 	self.updateSpeed()
 ```
 
-And run the example (as sudo).  You can change the speed at any time from your dataplicity account.  Quit with Ctrl-C.
+In short the car speed is updated each time the main dataplicity thread polls it and also when any configuration changes server-side (typically because someone changed a device setting on the website).  
+
+Run the example (as sudo).  You can change the speed at any time from your dataplicity account.  You can quit with Ctrl-C.
 
 ```
 [13/May/2014 15:32:47]:dataplicity:INFO: running firmware 0000000001
