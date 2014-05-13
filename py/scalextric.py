@@ -34,4 +34,4 @@ class SetSpeedTask(Task):
         except:
             pass
 
-	self.updateSpeed()
+        self.updateSpeed()
