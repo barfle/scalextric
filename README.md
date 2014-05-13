@@ -1,6 +1,8 @@
 Internet controlled SCALEXTRIC with Raspberry Pi!
 =================================================
-With this project I can control the speed of a car on a SCALEXTRIC system from a Raspberry Pi.  I had a look around for tips on where to start and found a few people had had a crack at it but that documentation was distributed and not so straightforward to follow, so after I figured it out I pieced it all together in one example below.  Just for good measure, I plugged the system into dataplicity and I can now control the speed of my car from the internet!
+With this project I can use dataplicity (dataplicity.com) and a Raspberry Pi to control the speed of a car on a SCALEXTRIC system from the internet.  
+
+I had a look around for tips on where to start and found a few people had had a crack at it but that documentation was distributed and not so straightforward to follow, so after I figured it out I pieced it all together in one example below.  Just for good measure, I plugged the system into dataplicity and I can now control the speed of my car from the internet!
 
 Prerequisities
 ---------------
