@@ -29,6 +29,7 @@ I followed the usual dataplicity getting started guide at http://dataplicity.com
 You'll need two additional packages installed at this point: python-dev and wiringpi.  These are needed to interface with the Gertboard via PWM.
 
 You must first install python-dev or wiringpi will fail to install.
+
     sudo apt-get install python-dev
 
 Then:
@@ -67,7 +68,9 @@ Run a test
 ----------
 Christine Smythe of Farnell has conveniently provided a Scalextric controller example for the Gertboard which is perfect to test this out.  For convenience, I've included it as test/fsmot-wpv1p0p0.py in this repo.  
 
-Run it (must be run as sudo), and set the increment to about 50, and the motor output to about 30-40% (circa 373).  
+Make sure you've switched on your 12VDC power supply (note that you definitely do not require the factory supplied Scalextric power supply as you should be supplying power directly to the rails).
+
+Run the fsmot example (must be run as sudo).  Set the increment to about 50, and the motor output to about 30-40% (circa 373): 
 
 ```
 pi@raspberrypi ~/scalextric/test $ sudo python fsmot-wpv1p0p0.py
@@ -91,9 +94,9 @@ Hit <RETURN/ENTER> to begin...
 0373 #######################
 ```
 
-This is usually enough to start the car, so you can try placing the car on the track and see if it starts to move.  If it doesn't, try the parallel track (I wasted more time than I care to admit by powering the wrong track).
+This is usually enough to start the car, so you can try placing the car on the track and see if it starts to move.  If it doesn't, try the parallel track (I wasted more time than I care to admit by powering the wrong track).  
 
-At this point, we can control the car from the Pi using the fsmot example.
+At this point, we can control the speed of the car from the Pi using the fsmot example.
 
 Now, control it from the internet!
 ----------------------------------
@@ -141,6 +144,76 @@ Modify the ui.xml to replace the sinewave example stuff with a dropdown selector
 In the case of the above XML, the final user interface looks like this:
 ![Finished Scalextric user interface](/images/scalextric-web.png)
 
-The only remaining step was to stitch it all together, which I did in a couple of lines of code in scalextric.py. In short the car speed is updated each time the main dataplicity thread polls it, and also when any configuration changes server-side (typically because someone changed a device setting on the website). 
+The only remaining step was to stitch it all together, which I did in a couple of lines of code in scalextric.py. In short the car speed is updated each time the main dataplicity thread polls it, and also when any configuration changes server-side (typically because someone changed a device setting on the website).  Like so:
 
-Tada!  
+```
+from dataplicity.client.task import Task, onsignal
+
+import wiringpi
+import sys
+from time import sleep
+
+class SetSpeedTask(Task):
+    """Regulates the speed of the motor"""
+
+    def on_startup (self):
+        wiringpi.wiringPiSetupGpio()                # Initialise wiringpi GPIO
+        wiringpi.pinMode(18,2)                      # Set up GPIO 18 to PWM mode
+        wiringpi.pinMode(17,1)                      # GPIO 17 to output
+        wiringpi.digitalWrite(17, 0)                # port 17 off for rotation one way
+        wiringpi.pwmWrite(18,0)                     # set pwm to zero initially
+
+    def poll(self):
+        """Called on a schedule defined in dataplicity.conf"""
+        self.updateSpeed() 
+
+    def updateSpeed (self):
+        pwm_speed = int(round((self.speed * 1024) / 100, 0))
+        print "Setting speed: "+str(pwm_speed)
+        wiringpi.pwmWrite(18, pwm_speed)
+
+    @onsignal('settings_update', 'scalextric')
+    def on_settings_update(self, name, settings):
+        """Catches the 'settings_update' signal for 'scalextric'"""
+        # This signal is sent on startup and whenever settings are changed by the server
+        str_speed = settings.get('track', 'speed')
+        self.speed = 0
+        try:
+            self.speed = int(str_speed)
+        except:
+            pass
+
+	self.updateSpeed()
+```
+
+And run the example (as sudo).  You can change the speed at any time from your dataplicity account.  Quit with Ctrl-C.
+
+```
+[13/May/2014 15:32:47]:dataplicity:INFO: running firmware 0000000001
+[13/May/2014 15:32:47]:dataplicity:DEBUG: adding /home/pi/scalextric/py to Python path
+[13/May/2014 15:32:47]:dataplicity:DEBUG: added task SetSpeedTask('scalextric')
+[13/May/2014 15:32:47]:dataplicity:DEBUG: adding settings 'scalextric' from path /var/dataplicity/projects.Scalextric/scalextric.conf
+[13/May/2014 15:32:47]:dataplicity:DEBUG: syncing...
+[13/May/2014 15:32:47]:dataplicity:DEBUG: written settings <settings "/var/dataplicity/projects.Scalextric/scalextric.conf">
+[13/May/2014 15:32:49]:dataplicity:DEBUG: sending signal 'settings_update' from 'scalextric' with args (u'scalextric', <settings scalextric.conf>), {}
+[13/May/2014 15:32:49]:dataplicity:DEBUG: settings file(s) changed: scalextric
+[13/May/2014 15:32:49]:dataplicity:DEBUG: sync complete 1.12s
+[13/May/2014 15:32:49]:dataplicity:DEBUG: starting dataplicity service with conf /home/pi/scalextric/dataplicity.conf
+[13/May/2014 15:32:49]:dataplicity:DEBUG: starting task manager
+[13/May/2014 15:32:49]:dataplicity:DEBUG: initializing task SetSpeedTask('scalextric')
+[13/May/2014 15:32:49]:dataplicity:DEBUG: sending signal 'settings_update' from 'scalextric' with args ('scalextric', <settings scalextric.conf>), {}
+[13/May/2014 15:32:49]:dataplicity:DEBUG: ready
+[13/May/2014 15:32:49]:dataplicity:DEBUG: syncing...
+[13/May/2014 15:32:49]:dataplicity:DEBUG: written settings <settings "/var/dataplicity/projects.Scalextric/scalextric.conf">
+[13/May/2014 15:32:49]:dataplicity.task.scalextric:DEBUG: started
+Setting speed: 358
+[13/May/2014 15:32:49]:dataplicity:DEBUG: user Exit
+[13/May/2014 15:32:49]:dataplicity:DEBUG: closing
+[13/May/2014 15:32:49]:dataplicity:DEBUG: stopping tasks
+[13/May/2014 15:32:49]:dataplicity:DEBUG: sending signal 'stopping' with args (), {}
+[13/May/2014 15:32:49]:dataplicity.task.scalextric:DEBUG: shutdown requested
+[13/May/2014 15:32:49]:dataplicity:DEBUG: sending signal 'shuttingdown' with args (), {'graceful': True}
+[13/May/2014 15:32:49]:dataplicity.task.scalextric:DEBUG: stopped
+[13/May/2014 15:32:49]:dataplicity:DEBUG: goodbye
+```
+Tada!
