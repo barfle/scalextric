@@ -156,9 +156,6 @@ Modify the ui.xml to replace the sinewave example stuff with a dropdown selector
 </ui>
 ```
 
-In the case of the above XML, the final user interface looks like this:
-![Finished Scalextric user interface](/images/scalextric-web.png)
-
 The only remaining step was to stitch it all together, which I did in a couple of lines of code in scalextric.py. Like so:
 
 ```
@@ -237,6 +234,11 @@ Setting speed: 358
 [13/May/2014 15:32:49]:dataplicity.task.scalextric:DEBUG: stopped
 [13/May/2014 15:32:49]:dataplicity:DEBUG: goodbye
 ```
+
+In the case of the above XML, the final user interface looks like this:
+![Finished Scalextric user interface](/images/scalextric-web.png)
+
+
 Tada!
 
 ![Finished Scalextric track](/images/scalextric-setup.jpg)
