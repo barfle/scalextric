@@ -32,7 +32,7 @@ You must first install python-dev or wiringpi will fail to install.
   sudo apt-get install python-dev
 
 Then
-  pi@raspberrypi ~ $ sudo pip install wiringpi
+    pi@raspberrypi ~ $ sudo pip install wiringpi
   Downloading/unpacking wiringpi
     Running setup.py egg_info for package wiringpi
 
