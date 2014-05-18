@@ -13,7 +13,7 @@ What you will need:
 * Power supply 12-14VDC capable of 1-2A.
 * Spare SCALEXTRIC controller (likely will be sacrificed)
 * Raspberry Pi Model B, or Model A with WiFi
-* dataplicity account (it's free)
+* dataplicity account to connect network devices (dataplicity.com)
 * Gertboard (we use only the motor controller output via Raspberry Pi PWM output)
 
 I don't have a SCALEXTRIC digital set so I've no way to know if this project will work with one.  Accordingly I suggest you do so only if you know what you are doing.
